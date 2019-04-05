@@ -1,0 +1,29 @@
+{
+  "name": "expenses",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "key": "export GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\"",
+    "start": "npm run key && node index.js",
+    "serve": "clear && ssh -o ServerAliveInterval=60 -R expense:80:localhost:3000 serveo.net",
+    "dev": "concurrently --kill-others \"nodemon server.js\" \"NODE_ENV=dev npx nodemon exit 0\" \"npm run serve\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/godo13405/expenses.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/godo13405/expenses/issues"
+  },
+  "homepage": "https://github.com/godo13405/expenses#readme",
+  "dependencies": {
+    "@google-cloud/vision": "^0.25.0"
+  },
+  "devDependencies": {
+    "concurrently": "^4.1.0"
+  }
+}
