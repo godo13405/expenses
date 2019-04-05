@@ -16,9 +16,8 @@ server.on('request', (req, res) => {
         req.on('data', chunk => {
             body += chunk.toString();
         });
-        req.on('end', () => {
-            // body = JSON.parse(body) || null;
-            endpoint.expenses({
+        req.on('end', async () => {
+            const output = await endpoint.expenses({
                 body
             }, res);
             res.end('ok');
