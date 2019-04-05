@@ -1,0 +1,42 @@
+$color-primary: #673AB7;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    padding: 1rem;
+
+    &.busy {
+        pointer-events: none;
+
+        >* {
+            opacity: .4;
+        }
+
+        background: url(./loader.svg) no-repeat center;
+    }
+}
+
+form,
+.uploader {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.uploader {
+    background: rgba($color-primary, .1);
+    border-radius: 1rem;
+}

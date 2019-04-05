@@ -1,1 +1,41 @@
-/* No CSS *//*# sourceMappingURL=style.css.map */
+*,
+*:before,
+*:after {
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  padding: 0;
+  margin: 0;
+}
+
+body {
+  padding: 1rem;
+}
+
+body.busy {
+  pointer-events: none;
+  background: url(./loader.svg) no-repeat center;
+}
+
+body.busy > * {
+  opacity: .4;
+}
+
+form,
+.uploader {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.uploader {
+  background: rgba(103, 58, 183, 0.1);
+  border-radius: 1rem;
+}
+/*# sourceMappingURL=style.css.map */

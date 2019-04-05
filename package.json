@@ -5,10 +5,9 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "key": "export GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\"",
-    "start": "npm run key && node index.js",
+    "start": "GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\" node index.js",
     "serve": "clear && ssh -o ServerAliveInterval=60 -R expense:80:localhost:3000 serveo.net",
-    "dev": "concurrently --kill-others \"nodemon server.js\" \"NODE_ENV=dev npx nodemon exit 0\" \"npm run serve\""
+    "dev": "GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\" concurrently --kill-others \"nodemon server.js\""
   },
   "repository": {
     "type": "git",
@@ -21,7 +20,9 @@
   },
   "homepage": "https://github.com/godo13405/expenses#readme",
   "dependencies": {
-    "@google-cloud/vision": "^0.25.0"
+    "@google-cloud/vision": "^0.25.0",
+    "base64-img": "^1.0.4",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "concurrently": "^4.1.0"

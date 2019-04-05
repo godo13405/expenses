@@ -17,7 +17,6 @@ server.on('request', (req, res) => {
             body += chunk.toString();
         });
         req.on('end', () => {
-            console.log('body:', body);
             // body = JSON.parse(body) || null;
             endpoint.expenses({
                 body

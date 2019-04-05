@@ -2,9 +2,6 @@
 
 const fs = require('fs'),
     serve = {
-        api: body => {
-
-        },
         static: (req, res) => {
             let filePath = `./www${req.url}`;
             if (filePath === './www/') {

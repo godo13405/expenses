@@ -1,38 +1,72 @@
 'use strict';
 
 const fn = {
-    submit: () => {
-        document.querySelector('form').submit();
+    submit: data => {
+        fetch('./', {
+                method: "POST", // *GET, POST, PUT, DELETE, etc.
+                // mode: "cors", // no-cors, cors, *same-origin
+                cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+                // credentials: "same-origin", // include, *same-origin, omit
+                headers: {
+                    // "Content-Type": "application/json",
+                    "Content-Type": "application/x-www-form-urlencoded",
+                },
+                redirect: "follow", // manual, *follow, error
+                referrer: "no-referrer", // no-referrer, *client
+                body: data // body data type must match "Content-Type" header
+            })
+            .then(function (response) {
+                return response.json();
+            })
+            .then(function (myJson) {
+                console.log('API response: ', JSON.stringify(myJson));
+            });
     },
     imgSubmit: img => {
-        const file = img.files[0],
-            reader = new FileReader();
-        reader.onload = () => {
-            ((base64Img = reader.result) => {
-                document.querySelector('input[name=url]').value = base64Img;
-            })();
-        }
+        document.querySelector('body').classList.add('busy');
+        const file = img.files[0];
+        var reader = new FileReader();
+        // Read in the image file as a data URL.
         reader.readAsDataURL(file);
+        reader.onload = function (evt) {
+            if (evt.target.readyState == FileReader.DONE) {
+                let img = new Image();
+                img.src = evt.target.result;
+                img.onload = function () {
+                    let height = img.height,
+                        width = img.width,
+                        largest = height;
 
+                    // what's the orientation?
+                    if (height <= width) {
+                        largest = width;
+                    }
+
+                    const ratio = 800 / largest;
+
+                    let data = fn.imageToDataUri(img, width * ratio, height * ratio);
+                    fn.submit(data);
+                }
+            }
+        }
     },
-    getDataUri: (url, callback) => {
-        var image = new Image();
+    imageToDataUri: (img, width = 800, height = 800) => {
+        // create an off-screen canvas
+        let canvas = document.createElement('canvas'),
+            ctx = canvas.getContext('2d');
 
-        image.onload = function () {
-            var canvas = document.createElement('canvas');
-            canvas.width = this.naturalWidth; // or 'width' if you want a special/scaled size
-            canvas.height = this.naturalHeight; // or 'height' if you want a special/scaled size
+        // set its dimension to target size
+        canvas.width = width;
+        canvas.height = height;
 
-            canvas.getContext('2d').drawImage(this, 0, 0);
+        // draw source image into the off-screen canvas:
+        ctx.drawImage(img, 0, 0, width, height);
 
-            // Get raw image data
-            callback(canvas.toDataURL('image/png').replace(/^data:image\/(png|jpg);base64,/, ''));
+        document.querySelector('body').appendChild(canvas);
+        document.querySelector('body').classList.add('canvas');
 
-            // ... or get as Data URI
-            callback(canvas.toDataURL('image/png'));
-        };
-
-        image.src = url;
+        // encode image to data-uri with base64 version of compressed image
+        return canvas.toDataURL();
     }
 };
 

@@ -10,10 +10,11 @@
 </head>
 
 <body>
+    <div class="canvas"></div>
     <form action="/" method="POST">
-        <input type="file" name="img" onchange="fn.imgSubmit(this)" />
-        <input type="text" name="url" onchange="fn.submit()"
-            value="https://d85ecz8votkqa.cloudfront.net/support/help_center/Print_Payment_Receipt.JPG" />
+        <label class="uploader">
+            <input type="file" name="img" onchange="fn.imgSubmit(this)" style="display:none" />
+        </label>
     </form>
 
     <script src="fn.js"></script>
