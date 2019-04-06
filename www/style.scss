@@ -19,14 +19,20 @@ body {
     padding: 1rem;
 
     &.busy {
-        pointer-events: none;
-
-        >* {
-            opacity: .4;
-        }
-
         background: url(./loader.svg) no-repeat center;
     }
+}
+
+form {
+    body:not(.initial) & {
+        opacity: 0;
+    }
+
+    body.result & {
+        display: none;
+    }
+
+    transition: opacity .2s ease-out;
 }
 
 form,
@@ -39,4 +45,24 @@ form,
 .uploader {
     background: rgba($color-primary, .1);
     border-radius: 1rem;
+}
+
+.image {
+    body:not(.result) & {
+        opacity: 0;
+    }
+
+    transition: opacity .2s ease-out;
+
+    &,
+    canvas {
+        max-width: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+        position: relative;
+        display: block;
+    }
+
+    canvas {
+        margin: 0 auto;
+    }
 }

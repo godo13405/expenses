@@ -19,12 +19,20 @@ body {
 }
 
 body.busy {
-  pointer-events: none;
   background: url(./loader.svg) no-repeat center;
 }
 
-body.busy > * {
-  opacity: .4;
+form {
+  -webkit-transition: opacity .2s ease-out;
+  transition: opacity .2s ease-out;
+}
+
+body:not(.initial) form {
+  opacity: 0;
+}
+
+body.result form {
+  display: none;
 }
 
 form,
@@ -37,5 +45,26 @@ form,
 .uploader {
   background: rgba(103, 58, 183, 0.1);
   border-radius: 1rem;
+}
+
+.image {
+  -webkit-transition: opacity .2s ease-out;
+  transition: opacity .2s ease-out;
+}
+
+body:not(.result) .image {
+  opacity: 0;
+}
+
+.image,
+.image canvas {
+  max-width: -webkit-fill-available;
+  max-height: -webkit-fill-available;
+  position: relative;
+  display: block;
+}
+
+.image canvas {
+  margin: 0 auto;
 }
 /*# sourceMappingURL=style.css.map */
