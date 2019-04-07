@@ -11,6 +11,7 @@ const fn = {
         const vision = require('@google-cloud/vision');
 
         // let's temporarily store the image
+        console.log('body:', body);
         const data = body.replace(/^data:image\/[a-z]*;base64,/, ""),
             image = new Buffer(data, 'base64'),
             // path = `./tmp/${uuid()}.jpg`;
@@ -68,18 +69,18 @@ const fn = {
 exports.expenses = async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
-    res.set('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
-    res.set('Access-Control-Allow-Credentials', 'true');
+    // res.set('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
+    // res.set('Access-Control-Allow-Credentials', 'true');
 
-    if (req.method === 'OPTIONS') {
-        // Send response to OPTIONS requests
-        res.set('Access-Control-Allow-Methods', 'GET');
-        res.set('Access-Control-Allow-Headers', 'Authorization');
-        res.set('Access-Control-Max-Age', '3600');
-        res.status(204).send('');
-    } else {
-        let output = await fn.api(req.body);
-        output = JSON.stringify(output);
-        res.end(output);
-    }
+    // if (req.method === 'OPTIONS') {
+    //     // Send response to OPTIONS requests
+    //     res.set('Access-Control-Allow-Methods', 'GET');
+    //     res.set('Access-Control-Allow-Headers', 'Authorization');
+    //     res.set('Access-Control-Max-Age', '3600');
+    //     res.status(204).send('');
+    // } else {
+    let output = await fn.api(req.body);
+    output = JSON.stringify(output);
+    res.end(output);
+    // }
 };
