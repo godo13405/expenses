@@ -3,9 +3,9 @@
 const fs = require('fs'),
     serve = {
         static: (req, res) => {
-            let filePath = `./www${req.url}`;
-            if (filePath === './www/') {
-                filePath = './www/index.html';
+            let filePath = `./docs${req.url}`;
+            if (filePath === './docs/') {
+                filePath = './docs/index.html';
             }
 
             fs.readFile(filePath, (error, content) => {

@@ -1,0 +1,142 @@
+$color-primary: #673AB7;
+
+*,
+*:before,
+*:after {
+    box-sizing: border-box;
+}
+
+html,
+body {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    font-family: 'Helvetica Neue', Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+body {
+    padding: 1rem;
+
+    &.busy {
+        background: url(./loader.svg) no-repeat center;
+    }
+
+    &.result {
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+    }
+}
+
+form {
+    body:not(.initial) & {
+        opacity: 0;
+    }
+
+    body.result & {
+        display: none;
+    }
+
+    transition: opacity .2s ease-out;
+}
+
+form,
+.uploader {
+    width: 100%;
+    height: 100%;
+    display: block;
+}
+
+.uploader {
+    background: rgba($color-primary, .1);
+    border-radius: 1rem;
+}
+
+.image {
+    body:not(.result) & {
+        opacity: 0;
+    }
+
+    transition: opacity .2s ease-out;
+    position: relative;
+    flex: 1;
+
+    &,
+    canvas {
+        max-width: -webkit-fill-available;
+        max-height: -webkit-fill-available;
+        position: relative;
+        display: block;
+        overflow: auto;
+    }
+
+    canvas {
+        margin: 0 auto;
+    }
+}
+
+.read-container {
+    overflow: hidden;
+    background: #fff;
+    box-shadow: 0 -2px 4px rgba(#111, .4);
+    padding: .4rem 1.2rem;
+    transition: padding .2s ease-out, max-height .2s ease-out;
+    max-height: 400px;
+    z-index: 2;
+
+    body:not(.result) & {
+        padding-top: 0;
+        padding-bottom: 0;
+        max-height: 0;
+    }
+
+    label {
+        display: block;
+        width: 100%;
+        border-radius: .4rem;
+        border: 1px solid #aaa;
+        margin-bottom: 1.2rem;
+        padding: 0 1rem;
+
+        margin-top: .8rem;
+
+        &.price {
+            .value {
+                &:before {
+                    content: "£ "
+                }
+            }
+        }
+    }
+
+    .label {
+        font-size: .8em;
+        display: table;
+        background: #fff;
+        margin-top: -.6rem;
+        outline: .4rem solid #fff;
+    }
+
+    .value {
+        padding: 1rem 0;
+        display: block;
+    }
+}
+
+.button {
+    $size: 50px;
+    display: block;
+    padding: .6rem;
+    color: #fff;
+    text-align: center;
+    border-radius: $size;
+    height: $size;
+    line-height: $size*0.7;
+
+    &.primary {
+        background: $color-primary;
+    }
+}

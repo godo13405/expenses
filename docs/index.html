@@ -12,10 +12,18 @@
 <body class="initial">
     <form action="/" method="POST">
         <label class="uploader">
-            <input type="file" name="img" onchange="fn.imgSubmit(this)" style="display:none" />
+            <input type="file" name="img" onchange="fn.imgSubmit(this)" style="display:none"
+                accept="image/*;capture=camera" />
         </label>
     </form>
     <div class="image"></div>
+    <div class="read-container">
+        <div class="inner">
+        </div>
+        <a class="button primary">
+            Save as expense
+        </a>
+    </div>
 
     <script src="fn.js"></script>
 </body>

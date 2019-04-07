@@ -38,18 +38,25 @@ const fn = {
 
         // let's go through the pieces of text, see if we can identify some key things
         let findings = {
-            box: cropBox,
-            products: []
-        };
-        fullText.forEach(x => {
-            if (x.match(/^date/i)) {
-                findings.date = x.replace(/^date[:\s]*/i, '')
-            } else if (x.match(/^[0-9]*[\s]*x[\s]*/i)) {
-                findings.products.push(x.replace(/^[0-9]*[\s]*x*[\s]*/i, ''));
-            } else if (x.match(/^(debit|credit) [a-z]*(:)/i)) {
-                findings.paid = x.replace(/^(debit|credit)[a - z]*(:)/i, '');
+                box: cropBox,
+                body: {
+                    Products: []
+                }
+            },
+            paid = 100000;
+        for (let x = 0; x < fullText.length; x++) {
+            const elem = fullText[x];
+            console.log('x:', x, elem);
+            if (elem.match(/^date/i)) {
+                findings.body.Date = elem.replace(/^date[:\s]*/i, '')
+            } else if (elem.match(/^[0-9]*[\s]*x[\s]*/i)) {
+                findings.body.Products.push(elem.replace(/^[0-9]*[\s]*x*[\s]*/i, ''));
+            } else if (elem.match(/^(debit|credit) [a-z]*(:)/i)) {
+                paid = x + 1;
+            } else if (x === paid) {
+                findings.body.Paid = elem;
             }
-        });
+        }
         // console.log('read:', fullText);
 
         // console.log('findings:', findings);

@@ -81,7 +81,7 @@ module.exports = {
         "function-paren-newline": "error",
         "generator-star-spacing": "error",
         "global-require": "off",
-        "guard-for-in": "error",
+        // "guard-for-in": "error",
         "handle-callback-err": "error",
         "id-blacklist": "error",
         "id-length": "off",

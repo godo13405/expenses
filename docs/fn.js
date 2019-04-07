@@ -19,11 +19,9 @@ const fn = {
                 return response.json();
             })
             .then(x => {
-                console.log(x);
                 document.querySelector('body').classList.remove('busy');
                 document.querySelector('body').classList.add('result');
 
-                console.log('imgArgs:', imgArgs);
                 const canvas = fn.canvasCrop({
                     imgArgs,
                     startX: x.box[0].x,
@@ -32,8 +30,16 @@ const fn = {
                     newHeight: x.box[2].y - x.box[1].y
                 });
                 document.querySelector('.image').appendChild(canvas);
-                // document.querySelector('.image').setAttribute('style', `background-image:url(${x.url})`);
+
+                fn.outputResult(x.body);
             });
+    },
+    outputResult: data => {
+        let body = '';
+        for (const x in data) {
+            body += `<label class="read-item ${x.toLowerCase()}"><span class="label">${x}</span><span class="value" contenteditable="true">${data[x]}</span></label>`;
+        }
+        document.querySelector(`.read-container .inner`).innerHTML = body;
     },
     imgSubmit: img => {
         document.querySelector('body').classList.remove('initial');
