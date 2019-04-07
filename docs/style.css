@@ -59,6 +59,15 @@ form,
 .uploader {
   background: rgba(103, 58, 183, 0.1);
   border-radius: 1rem;
+  line-height: calc(100vh - 1em);
+  text-align: center;
+  color: #673AB7;
+  border: 0.2rem dashed #673AB7;
+  font-size: 2rem;
+}
+
+.uploader:before {
+  content: "upload your receipt";
 }
 
 .image {

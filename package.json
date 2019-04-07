@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\" node index.js",
     "serve": "clear && ssh -o ServerAliveInterval=60 -R expense:80:localhost:3000 serveo.net",
-    "dev": "GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\" concurrently --kill-others \"nodemon server.js\""
+    "dev": "NODE_ENV=dev GOOGLE_APPLICATION_CREDENTIALS=\"./key.json\" concurrently --kill-others \"nodemon server.js\"",
+    "cloud-deploy": "gcloud functions deploy expenses --region=europe-west1 --trigger-http --runtime=nodejs8"
   },
   "repository": {
     "type": "git",
