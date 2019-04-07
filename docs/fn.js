@@ -4,7 +4,8 @@
 
 'use strict';
 
-const apiUrl = process.env.NODE_ENV === 'dev' ? './' : 'https://europe-west1-expenses-236607.cloudfunctions.net/expenses',
+console.log('window.location.hostname:', window.location.hostname);
+const apiUrl = window.location.hostname === 'localhost' ? './' : 'https://europe-west1-expenses-236607.cloudfunctions.net/expenses',
     fn = {
         submit: (data, imgArgs) => {
             fetch(apiUrl, {
