@@ -1,7 +1,8 @@
 'use strict';
 
 const fs = require("fs"),
-    uuid = require('uuid/v1');
+    uuid = require('uuid/v1'),
+    os = require('os');
 
 const fn = {
     api: async body => {
@@ -11,11 +12,9 @@ const fn = {
         const vision = require('@google-cloud/vision');
 
         // let's temporarily store the image
-        console.log('body:', body);
         const data = body.replace(/^data:image\/[a-z]*;base64,/, ""),
             image = new Buffer(data, 'base64'),
-            // path = `./tmp/${uuid()}.jpg`;
-            path = `./tmp/tmp.jpg`;
+            path = `${os.tmpdir()}/${uuid()}.jpg`;
 
         fs.writeFileSync(path, image);
         // eslint-disable-next-line no-console
@@ -47,7 +46,6 @@ const fn = {
             paid = 100000;
         for (let x = 0; x < fullText.length; x++) {
             const elem = fullText[x];
-            console.log('x:', x, elem);
             if (elem.match(/^date/i)) {
                 findings.body.Date = elem.replace(/^date[:\s]*/i, '')
             } else if (elem.match(/^[0-9]*[\s]*x[\s]*/i)) {
@@ -69,18 +67,21 @@ const fn = {
 exports.expenses = async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
-    // res.set('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
-    // res.set('Access-Control-Allow-Credentials', 'true');
+    res.setHeader('Access-Control-Allow-Headers', 'application/json');
+    res.setHeader('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
+    res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
+    res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-    // if (req.method === 'OPTIONS') {
-    //     // Send response to OPTIONS requests
-    //     res.set('Access-Control-Allow-Methods', 'GET');
-    //     res.set('Access-Control-Allow-Headers', 'Authorization');
-    //     res.set('Access-Control-Max-Age', '3600');
-    //     res.status(204).send('');
-    // } else {
-    let output = await fn.api(req.body);
-    output = JSON.stringify(output);
-    res.end(output);
-    // }
+    if (req.method === 'OPTIONS') {
+        // Send response to OPTIONS requests
+        res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
+        res.setHeader('Access-Control-Allow-Headers', 'Authorization');
+        res.setHeader('Access-Control-Max-Age', '3600');
+        res.status(204).send('');
+    } else {
+        let output = await fn.api(req.body);
+        console.log('output:', output);
+        output = JSON.stringify(output);
+        res.end(output);
+    }
 };
