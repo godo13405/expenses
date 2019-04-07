@@ -68,8 +68,18 @@ const fn = {
 exports.expenses = async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
+    res.set('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
+    res.set('Access-Control-Allow-Credentials', 'true');
 
-    let output = await fn.api(req.body);
-    output = JSON.stringify(output);
-    res.end(output);
+    if (req.method === 'OPTIONS') {
+        // Send response to OPTIONS requests
+        res.set('Access-Control-Allow-Methods', 'GET');
+        res.set('Access-Control-Allow-Headers', 'Authorization');
+        res.set('Access-Control-Max-Age', '3600');
+        res.status(204).send('');
+    } else {
+        let output = await fn.api(req.body);
+        output = JSON.stringify(output);
+        res.end(output);
+    }
 };
