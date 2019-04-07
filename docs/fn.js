@@ -6,8 +6,8 @@
 
 const fn = {
     submit: (data, imgArgs) => {
-        // let apiUrl = 'https://europe-west1-expenses-236607.cloudfunctions.net/expenses';
-        let apiUrl = 'https://fn.expenses.goncaloandrade.com/expenses';
+        let apiUrl = 'https://europe-west1-expenses-236607.cloudfunctions.net/e/xpenses';
+        // let apiUrl = 'https://fn.expenses.goncaloandrade.com/expenses';
         if (window.location.hostname === 'localhost' || window.location.hostname.match('/serveo.net/gi')) {
             apiUrl = './';
         }
