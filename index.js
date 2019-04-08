@@ -68,7 +68,7 @@ exports.expenses = async (req, res) => {
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
     res.setHeader('Access-Control-Allow-Headers', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', 'https://godo13405.github.io/expenses/');
+    res.setHeader('Access-Control-Allow-Origin', '*');
     res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
     res.setHeader('Access-Control-Allow-Credentials', 'true');
 
