@@ -2,7 +2,13 @@
 
 const fs = require("fs"),
     uuid = require('uuid/v1'),
-    os = require('os');
+    os = require('os'),
+    access = require('access-control'),
+    cors = access({
+        maxAge: '1 hour',
+        credentials: true,
+        // origins: 'http://example.com'
+    });
 
 const fn = {
     api: async body => {
@@ -65,23 +71,13 @@ const fn = {
 };
 
 exports.expenses = async (req, res) => {
+    if (cors(req, res)) return;
     res.statusCode = 200;
     res.setHeader('Content-Type', 'application/json;charset=UTF-8');
-    res.setHeader('Access-Control-Allow-Headers', 'application/json');
-    res.setHeader('Access-Control-Allow-Origin', '*');
-    res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
-    res.setHeader('Access-Control-Allow-Credentials', 'true');
+    // res.setHeader('Access-Control-Allow-Credentials', 'true');
 
-    if (req.method === 'OPTIONS') {
-        // Send response to OPTIONS requests
-        res.setHeader('Access-Control-Allow-Methods', 'GET', 'POST');
-        res.setHeader('Access-Control-Allow-Headers', 'Authorization');
-        res.setHeader('Access-Control-Max-Age', '3600');
-        res.status(204).send('');
-    } else {
-        let output = await fn.api(req.body);
-        console.log('output:', output);
-        output = JSON.stringify(output);
-        res.end(output);
-    }
+    let output = await fn.api(req.body);
+    console.log('output:', output);
+    output = JSON.stringify(output);
+    res.end(output);
 };

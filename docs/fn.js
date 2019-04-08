@@ -8,6 +8,7 @@ const fn = {
     submit: (data, imgArgs) => {
         let q = new URLSearchParams("https://www.google.com/webhp?sourceid=chrome-instant&ion=1&espv=2&ie=UTF-8&q=mdn%20query%20string")
         q = q.get('source');
+        console.log('q:', q);
         let apiUrl = 'https://europe-west1-expenses-236607.cloudfunctions.net/expenses';
         // let apiUrl = 'https://fn.expenses.goncaloandrade.com/expenses';
         if (window.location.hostname === 'localhost' || window.location.hostname.match(/serveo.net/gi)) {
