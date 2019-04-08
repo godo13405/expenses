@@ -10,8 +10,10 @@ const fn = {
         q = q.get('source');
         let apiUrl = 'https://europe-west1-expenses-236607.cloudfunctions.net/e/xpenses';
         // let apiUrl = 'https://fn.expenses.goncaloandrade.com/expenses';
-        if (window.location.hostname === 'localhost' || window.location.hostname.match('/serveo.net/gi') || q === 'local') {
+        if (window.location.hostname === 'localhost' || window.location.hostname.match('/serveo.net/gi')) {
             apiUrl = './';
+        } else if (q === 'local') {
+            apiUrl = 'https://expenses.serveo.net';
         }
         fetch(apiUrl, {
                 method: "POST", // *GET, POST, PUT, DELETE, etc.
